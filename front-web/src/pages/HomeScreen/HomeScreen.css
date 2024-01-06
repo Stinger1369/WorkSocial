@@ -1,0 +1,19 @@
+.home-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.home-screen-content {
+    width: 100%;
+    max-width: 1200px; /* Largeur maximale du contenu */
+    margin: auto;
+}
+
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px; /* Espace entre les cartes */
+}
