@@ -10,7 +10,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import FranceFlag from '../assets/flags/france.png';
 import EnglandFlag from '../assets/flags/england.png';
-import logo from '../assets/images/LogoBg.png';
+import logo from '../assets/images/logoBg.png';
 
 
 const windowWidth = Dimensions.get('window').width;
