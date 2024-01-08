@@ -8,10 +8,10 @@ const HomeScreen = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const tokenJWT = localStorage.getItem('jwtToken'); // Récupérez le token JWT du local storage
+                const tokenJWT = localStorage.getItem('jwtToken');
                 const response = await fetch('http://localhost:3000/users', {
                     headers: {
-                        'Authorization': `Bearer ${tokenJWT}` // Utilisez le token JWT dans l'en-tête de la requête
+                        'Authorization': `Bearer ${tokenJWT}`
                     }
                 });
                 if (!response.ok) {

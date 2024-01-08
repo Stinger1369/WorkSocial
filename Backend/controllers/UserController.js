@@ -52,14 +52,25 @@ createUser: (req, res) => {
   }
 
   // Vérifier si le nom d'utilisateur existe déjà
-  db.query('SELECT * FROM user WHERE Username = ?', [Username], (err, result) => {
+  // Vérifier si l'email existe déjà
+  db.query('SELECT * FROM user WHERE Email = ?', [Email], (err, result) => {
     if (err) {
-      return res.status(500).json({ error: 'Erreur lors de la vérification du nom d\'utilisateur: ' + err.message });
+      return res.status(500).json({ error: 'Erreur lors de la vérification de l\'email: ' + err.message });
     }
 
     if (result.length > 0) {
-      return res.status(409).json({ error: 'Ce nom d\'utilisateur est déjà pris.' });
+      return res.status(409).json({ error: 'Cet email est déjà utilisé.' });
     }
+
+    // Si l'email est disponible, continuez avec la vérification du nom d'utilisateur
+    db.query('SELECT * FROM user WHERE Username = ?', [Username], (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Erreur lors de la vérification du nom d\'utilisateur: ' + err.message });
+      }
+
+      if (result.length > 0) {
+        return res.status(409).json({ error: 'Ce nom d\'utilisateur est déjà pris.' });
+      }
 
     // Continuer avec l'insertion si le nom d'utilisateur est disponible
     const hashedPassword = bcrypt.hashSync(Password, 8);
@@ -75,6 +86,7 @@ createUser: (req, res) => {
       }
     });
   });
+});
 },
 
 

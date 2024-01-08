@@ -2,18 +2,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .home-screen-content {
     width: 100%;
-    max-width: 1200px; /* Largeur maximale du contenu */
+    max-width: 1200px;
     margin: auto;
 }
 
 .user-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px; /* Espace entre les cartes */
+    justify-content: space-between;
+    gap: 10px;
 }

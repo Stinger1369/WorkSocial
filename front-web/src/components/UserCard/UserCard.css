@@ -2,7 +2,7 @@
     border: 1px solid #ccc;
     padding: 15px;
     margin: 10px;
-    width: calc(25% - 40px); /* 4 cartes par ligne avec un peu d'espace entre elles */
+    width: calc(15% - 40px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
@@ -20,7 +20,7 @@
 
 @media (max-width: 1024px) {
     .user-card {
-        width: calc(33.333% - 40px); /* 3 cartes par ligne sur tablettes */
+        width: calc(22.333% - 40px); /* 3 cartes par ligne sur tablettes */
     }
 }
 
