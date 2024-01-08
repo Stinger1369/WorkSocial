@@ -13,20 +13,23 @@ const ConnexionScreen = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/users/login', { 
+      const response = await fetch('http://localhost:3000/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
+      console.log('data', data);
       if (response.ok) {
-        const firstName = data.user.first_name;
+        const token = data.token; // Assurez-vous que c'est le bon chemin pour obtenir le token
+        localStorage.setItem('jwtToken', token); // Stockez le token dans le local storage
+        const firstName = data.user.FirstName;
         console.log('prenom', firstName);
-        auth.login(firstName);
-        navigate('/');
+        auth.login(firstName); // Met à jour l'état de l'authentification
+        navigate('/'); // Redirige vers la page d'accueil
       } else {
         console.error('Erreur lors de la connexion:', data);
       }
@@ -34,20 +37,19 @@ const ConnexionScreen = () => {
       console.error('Erreur réseau:', error);
     }
   };
-  
 
   return (
     <div className="connexion-screen">
       <form onSubmit={handleSubmit}>
         <h2>Connexion</h2>
         <div className="form-group">
-         <label htmlFor="email">Adresse Email</label>
-         <input
-         type="email"
-         id="email"
-         value={email}
-         onChange={(e) => setEmail(e.target.value)}
-         />
+          <label htmlFor="email">Adresse Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password">Mot de passe</label>

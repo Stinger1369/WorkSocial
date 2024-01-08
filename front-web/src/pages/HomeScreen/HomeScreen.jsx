@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './HomeScreen.css';
-import { Link } from 'react-router-dom';
 import UserCard from '../../components/UserCard/UserCard';
 
 const HomeScreen = () => {
@@ -9,11 +8,17 @@ const HomeScreen = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:3000/users');
+                const tokenJWT = localStorage.getItem('jwtToken'); // Récupérez le token JWT du local storage
+                const response = await fetch('http://localhost:3000/users', {
+                    headers: {
+                        'Authorization': `Bearer ${tokenJWT}` // Utilisez le token JWT dans l'en-tête de la requête
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Erreur lors de la récupération des utilisateurs');
                 }
                 const data = await response.json();
+                console.log('data', data);
                 setUsers(data);
             } catch (error) {
                 console.error('Erreur:', error);
@@ -30,7 +35,7 @@ const HomeScreen = () => {
                 <p>Page d'accueil</p>
                 <div className="user-list">
                     {users.map((user) => (
-                        <UserCard key={user.id} user={user} />
+                        <UserCard key={user.User_ID} user={user} />
                     ))}
                 </div>
             </div>

@@ -3,10 +3,9 @@ const config = {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'database'
+      database: 'worksocial'
     },
     port: 3000
   };
   
   module.exports = config;
-  

@@ -6,16 +6,20 @@ const multer = require('multer');
 
 // Configurez CORS pour accepter les requêtes de votre domaine frontend
 app.use(cors({
-  origin: 'http://localhost:5173' 
+  origin: 'http://localhost:5173'
 }));
 
 app.use(express.json());
 app.use('/users', userRouter);
 
+// Servez les fichiers statiques du dossier 'uploads'
+app.use('/uploads', express.static('uploads'));
+
 app.get('/test', (req, res) => {
   res.send('Le serveur fonctionne correctement.');
 });
-// Configuration du stockage
+
+// Configuration du stockage pour Multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -26,4 +30,5 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
 module.exports = app;

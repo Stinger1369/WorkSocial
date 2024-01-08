@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ConnexionScreen from '../ConnexionScreen/ConnexionScreen';
+
 
 import './InscriptionScreen.css';
 
 const InscriptionScreen = () => {
-    const [firstName, setFirstName] = useState('');
+    const [username, setUsername] = useState('');
     const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
     const [birthDate, setBirthDate] = useState('');
-    const [age, setAge] = useState(0);
     const [address, setAddress] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [gender, setGender] = useState('');
     const [image, setImage] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
     const [successMessage, setSuccessMessage] = useState('');
+    const [age, setAge] = useState(0);
+
+
+    const navigate = useNavigate();
 
   useEffect(() => {
     if (birthDate) {
@@ -47,23 +50,24 @@ const InscriptionScreen = () => {
     }
   
     const formData = new FormData();
-    formData.append('first_name', firstName);
-    formData.append('last_name', lastName);
-    formData.append('birth_date', birthDate);
-    formData.append('age', age);
-    formData.append('address', address);
-    formData.append('email', email);
-    formData.append('password_hash', password);
-    formData.append('role', 'user');
-    formData.append('gender', gender);
-    formData.append('image', image); // Assurez-vous que 'image' est le fichier sélectionné
-  
+        formData.append('Username', username);
+        formData.append('LastName', lastName);
+        formData.append('FirstName', firstName);
+        formData.append('BirthDate', birthDate);
+        formData.append('Age', age);
+        formData.append('Address', address);
+        formData.append('Email', email);
+        formData.append('Password', password);
+        formData.append('Role', 'User');
+        formData.append('Gender', gender);
+        formData.append('image', image);
+console.log(gender);
     try {
-      const response = await fetch('http://localhost:3000/users', { 
+      const response = await fetch('http://localhost:3000/users', {
         method: 'POST',
-        body: formData // Notez qu'il n'y a pas d'en-tête Content-Type ici
+        body: formData
       });
-  
+
       const data = await response.json();
       if (response.ok) {
         setSuccessMessage('Inscription réussie. Redirection vers la page de connexion...');
@@ -81,7 +85,7 @@ const InscriptionScreen = () => {
     }
   };
 
-  
+
 
   return (
     <div className="inscription-screen">
@@ -89,11 +93,11 @@ const InscriptionScreen = () => {
         <h2>Inscription</h2>
         <div className="form-group">
           <label htmlFor="image">Image de Profil</label>
-           <input 
-             type="file" 
-             id="image" 
-             onChange={e => setImage(e.target.files[0])} 
-             required 
+           <input
+             type="file"
+             id="image"
+             onChange={e => setImage(e.target.files[0])}
+             required
            />
          </div>
         <div className="form-group">
@@ -101,8 +105,12 @@ const InscriptionScreen = () => {
           <input type="text" id="firstName" value={firstName} onChange={e => setFirstName(e.target.value)} />
         </div>
         <div className="form-group">
-          <label htmlFor="lastName">Nom</label>
+          <label htmlFor="lastName">Nom d'utilisateur</label>
           <input type="text" id="lastName" value={lastName} onChange={e => setLastName(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="Username">Pseudo</label>
+          <input type="text" id="Username" value={username} onChange={e => setUsername(e.target.value)} />
         </div>
         <div className="form-group">
          <label htmlFor="gender">Genre</label>
@@ -126,9 +134,9 @@ const InscriptionScreen = () => {
           <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Mot de passe</label>
-          <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} />
-        </div>
+                    <label htmlFor="password">Mot de passe</label>
+                    <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} />
+         </div>
         <button type="submit">S'inscrire</button>
         {successMessage && <p className="success-message">{successMessage}</p>}
         {errorMessage && <p className="error-message">{errorMessage}</p>}
