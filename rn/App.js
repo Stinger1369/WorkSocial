@@ -1,26 +1,20 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ConnexionScreen from './src/pages/ConnexionScreen';
+import HomeScreen from './src/pages/HomeScreen';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <ConnexionScreen />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Connexion">
+        <Stack.Screen name="Connexion" component={ConnexionScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    padding: wp('1%'),
-    margin: hp('1%'),
-
-  },
-});
 
 export default App;
