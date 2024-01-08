@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import ConnexionScreen from './src/pages/ConnexionScreen';
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Bienvenue dans ma première application React Native !</Text>
+      <ConnexionScreen />
     </View>
   );
 };
@@ -15,11 +17,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  text: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    padding: wp('1%'),
+    margin: hp('1%'),
+
   },
 });
 
