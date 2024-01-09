@@ -20,7 +20,7 @@ const ConnexionScreen = ({ navigation }) => {
     if (response.ok) {
       const token = data.token;
       await AsyncStorage.setItem('@jwtToken', token);
-      navigation.navigate('Home'); // Mise à jour pour correspondre au nom de l'écran dans le navigateur
+      navigation.navigate('HomePrincipal');
     } else {
       Alert.alert("Erreur", "Email ou mot de passe incorrect.");
     }
