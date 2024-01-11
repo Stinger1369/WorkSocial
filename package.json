@@ -1,0 +1,36 @@
+{
+  "name": "template-fullstack",
+  "version": "2.0.0",
+  "description": "project template for the React-Express-MySQL cursus in Wild Code School",
+  "homepage": "https://github.com/wildcodeschool/js-template-fullstack#readme",
+  "bugs": {
+    "url": "https://github.com/wildcodeschool/js-template-fullstack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wildcodeschool/js-template-fullstack.git"
+  },
+  "config": {
+    "cli": "npm"
+  },
+  "scripts": {
+    "postinstall": "cross-env-shell \"husky install && cd ./front-web && npm install && cd ../backend && npm install && cd ../rn && npm install\"",
+    "migrate": "cd ./backend && node migrate.js",
+    "dev": "cross-env-shell 'concurrently -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time}\" \"npm run dev-*\"'",
+    "dev-front": "cross-env-shell \"cd ./front-web && npm run dev\"",
+    "dev-back": "cross-env-shell \"cd ./backend && npm run dev\"",
+    "lint": "cross-env-shell \"cd ./front-web && npm run lint && cd ../backend && npm run lint\"",
+    "fix": "cross-env-shell \"cd ./front-web && npm run fix && cd ../backend && npm run fix && cd ../rn && npm run fix\""
+  },
+  "keywords": [],
+  "author": "Wild Code School",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-react": "^7.23.3",
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
+    "husky": "^8.0.3"
+  }
+}

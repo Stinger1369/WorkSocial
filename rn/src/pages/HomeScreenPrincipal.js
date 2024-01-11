@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 const HomeScreenPrincipal = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Bienvenue dans l'application principale !</Text>
+      <Text style={styles.welcomeText}>
+        Bienvenue dans l&apos;application principale !
+      </Text>
     </View>
   );
 };

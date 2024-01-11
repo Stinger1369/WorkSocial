@@ -1,34 +1,50 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PropTypes from 'prop-types';
 
-const ConnexionScreen = ({ navigation }) => {
+const ConnexionScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
- const handleSubmit = async () => {
-  try {
-    const response = await fetch('http://192.168.1.62:3000/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://192.168.1.62:3000/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password}),
+      });
 
-    const data = await response.json();
-    if (response.ok) {
-      const token = data.token;
-      await AsyncStorage.setItem('@jwtToken', token);
-      navigation.navigate('HomePrincipal');
-    } else {
-      Alert.alert("Erreur", "Email ou mot de passe incorrect.");
+      const data = await response.json();
+      // ...
+
+      ConnexionScreen.propTypes = {
+        navigation: PropTypes.object.isRequired,
+      };
+
+      // ...
+
+      if (response.ok) {
+        const token = data.token;
+        await AsyncStorage.setItem('@jwtToken', token);
+        navigation.navigate('HomePrincipal');
+      } else {
+        Alert.alert('Erreur', 'Email ou mot de passe incorrect.');
+      }
+    } catch (error) {
+      console.error('Erreur réseau:', error);
+      Alert.alert('Erreur', 'Problème de connexion au serveur.');
     }
-  } catch (error) {
-    console.error('Erreur réseau:', error);
-    Alert.alert("Erreur", "Problème de connexion au serveur.");
-  }
-};
+  };
 
   return (
     <View style={styles.container}>
@@ -49,6 +65,10 @@ const ConnexionScreen = ({ navigation }) => {
       />
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Se connecter</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('InscriptionScreen')}>
+        <Text style={styles.linkText}>Pas de compte ? Inscrivez-vous</Text>
       </TouchableOpacity>
     </View>
   );
@@ -82,6 +102,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#ffffff',
     fontWeight: 'bold',
+  },
+  linkText: {
+    color: '#0066ff',
+    marginTop: 15,
   },
 });
 

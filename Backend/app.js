@@ -1,34 +1,33 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const app = express();
-const userRouter = require('./routes/UserRouter');
-const multer = require('multer');
+const userRouter = require("./src/routes/UserRouter");
+const multer = require("multer");
 
-// Configurez CORS pour accepter les requêtes de votre domaine frontend
-app.use(cors({
-  origin: 'http://localhost:5173'
-}));
+// Configure CORS pour accepter les requêtes de votre domaine frontend
+app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use(express.json());
-app.use('/users', userRouter);
+app.use("/users", userRouter);
 
 // Servez les fichiers statiques du dossier 'uploads'
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
-app.get('/test', (req, res) => {
-  res.send('Le serveur fonctionne correctement.');
+app.get("/test", (req, res) => {
+  res.send("Le serveur fonctionne correctement.");
 });
 
 // Configuration du stockage pour Multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
 
+// eslint-disable-next-line no-unused-vars
 const upload = multer({ storage: storage });
 
-module.exports = app;
+module.exports = { app, upload };

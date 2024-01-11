@@ -1,27 +1,14 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Button, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CustomAlert from '../../components/AlertButton';
+import PropTypes from 'prop-types';
 
-const DeconnexionScreen = ({ navigation }) => {
+const DeconnexionScreen = ({navigation}) => {
+  const [alertVisible, setAlertVisible] = useState(false);
+
   const confirmLogout = () => {
-    Alert.alert(
-      "Déconnexion",
-      "Êtes-vous sûr de vouloir vous déconnecter ?",
-      [
-        // Bouton pour annuler sans se déconnecter
-        {
-          text: "Annuler",
-          onPress: () => navigation.navigate('HomePrincipal'),
-          style: "cancel"
-        },
-        // Bouton pour confirmer et se déconnecter
-        {
-          text: "Se déconnecter",
-          onPress: () => handleLogout()
-        },
-      ],
-      { cancelable: true } // Permet à l'utilisateur d'annuler en tapant en dehors de l'alerte
-    );
+    setAlertVisible(true);
   };
 
   const handleLogout = async () => {
@@ -31,7 +18,7 @@ const DeconnexionScreen = ({ navigation }) => {
       await AsyncStorage.removeItem('@userPassword');
       navigation.navigate('Home');
     } catch (error) {
-      Alert.alert("Erreur", "Problème lors de la déconnexion.");
+      Alert.alert('Erreur', 'Problème lors de la déconnexion.');
     }
   };
 
@@ -39,10 +26,28 @@ const DeconnexionScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Déconnexion</Text>
       <Button title="Se déconnecter" onPress={confirmLogout} />
+
+      <CustomAlert
+        visible={alertVisible}
+        message="Êtes-vous sûr de vouloir vous déconnecter ?"
+        onConfirm={() => {
+          handleLogout();
+          setAlertVisible(false);
+        }}
+        onCancel={() => {
+          navigation.navigate('HomePrincipal');
+          setAlertVisible(false);
+        }}
+      />
     </View>
   );
 };
-
+// Define PropTypes
+DeconnexionScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,

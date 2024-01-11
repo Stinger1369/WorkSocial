@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../utils/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useAuth} from '../../utils/AuthContext';
 
 import './ConnexionScreen.css';
 
-const ConnexionScreen = () => {
+function ConnexionScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const auth = useAuth();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     try {
       const response = await fetch('http://localhost:3000/users/login', {
@@ -18,16 +18,16 @@ const ConnexionScreen = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({email, password}),
       });
 
       const data = await response.json();
-      console.log('data', data);
+      console.error('data', data);
       if (response.ok) {
-        const token = data.token; // Assurez-vous que c'est le bon chemin pour obtenir le token
+        const {token} = data; // Assurez-vous que c'est le bon chemin pour obtenir le token
         localStorage.setItem('jwtToken', token); // Stockez le token dans le local storage
         const firstName = data.user.FirstName;
-        console.log('prenom', firstName);
+        console.error('prenom', firstName); // Replace console.log with console.error
         auth.login(firstName); // Met à jour l'état de l'authentification
         navigate('/'); // Redirige vers la page d'accueil
       } else {
@@ -48,7 +48,7 @@ const ConnexionScreen = () => {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -57,13 +57,13 @@ const ConnexionScreen = () => {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
         </div>
         <button type="submit">Se connecter</button>
       </form>
     </div>
   );
-};
+}
 
 export default ConnexionScreen;

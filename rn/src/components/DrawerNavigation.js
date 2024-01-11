@@ -1,5 +1,5 @@
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreenPrincipal from '../pages/HomeScreenPrincipal';
 // Importez vos autres écrans ici
 import MyProfil from '../pages/DrawerPages/MyProfilScreen';
@@ -12,9 +12,6 @@ import Actualites from '../pages/DrawerPages/ActualitesScreen';
 import InviterAmis from '../pages/DrawerPages/InvitFreindsScreen';
 import TermsAndConditions from '../pages/DrawerPages/TermsAndConditionsScreen';
 import Deconnexion from '../pages/DrawerPages/DeconnexionScreen';
-
-
-
 
 const Drawer = createDrawerNavigator();
 
@@ -30,7 +27,10 @@ const DrawerNavigation = () => {
       <Drawer.Screen name="Créer Événement" component={CreerEvenement} />
       <Drawer.Screen name="Actualités" component={Actualites} />
       <Drawer.Screen name="Inviter des Amis" component={InviterAmis} />
-      <Drawer.Screen name="Terms and Conditions" component={TermsAndConditions} />
+      <Drawer.Screen
+        name="Terms and Conditions"
+        component={TermsAndConditions}
+      />
       <Drawer.Screen name="Déconnexion" component={Deconnexion} />
     </Drawer.Navigator>
   );

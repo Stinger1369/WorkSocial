@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Lint et formate les fichiers du backend
+cd Backend/ && npx eslint --fix '**/*.js' && npx prettier --write '**/*.js' && cd ..
+
+# Lint et formate les fichiers du front-web
+cd front-web/ && npx eslint --fix '**/*.js' && npx prettier --write '**/*.js' && cd ..
+
+# Lint et formate les fichiers du projet React Native
+cd rn/ && npx eslint --fix '**/*.js' && npx prettier --write '**/*.js' && cd ..
