@@ -20,7 +20,10 @@
     "dev-front": "cross-env-shell \"cd ./front-web && npm run dev\"",
     "dev-back": "cross-env-shell \"cd ./backend && npm run dev\"",
     "lint": "cross-env-shell \"cd ./front-web && npm run lint && cd ../backend && npm run lint\"",
-    "fix": "cross-env-shell \"cd ./front-web && npm run fix && cd ../backend && npm run fix && cd ../rn && npm run fix\""
+    "fix:front-web": "cd front-web && npm run fix",
+    "fix:backend": "cd backend && npm run fix",
+    "fix:rn": "cd rn && npm run fix",
+    "fix": "npm run fix:front-web && npm run fix:backend && npm run fix:rn"
   },
   "keywords": [],
   "author": "Wild Code School",
